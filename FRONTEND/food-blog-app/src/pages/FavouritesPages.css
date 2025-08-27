@@ -2,17 +2,29 @@
    MAIN PAGE CONTAINER
 ==================================== */
 .my-recipes-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 40px 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .page-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 2rem;
   text-align: center;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.page-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #d98c6b 0%, #c77a5e 100%);
+  margin: 1rem auto 0;
+  border-radius: 2px;
 }
 
 /* =================================
@@ -99,36 +111,98 @@
 ==================================== */
 .no-recipes-found {
   text-align: center;
-  padding: 4rem 2rem;
-  background-color: #f9f9f9;
-  border-radius: 12px;
-  margin-top: 2rem;
+  padding: 80px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .no-recipes-found h2 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  color: #1f2937;
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 
 .no-recipes-found p {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  color: #6b7280;
 }
 
-/* General button styling */
+/* Button styling that matches the project theme */
 .btn-primary {
   display: inline-block;
-  background-color: #27ae60;
+  background: linear-gradient(135deg, #d98c6b 0%, #c77a5e 100%);
   color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 16px 32px;
+  border-radius: 12px;
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(217, 140, 107, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: #2ecc71;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 140, 107, 0.4);
+  background: linear-gradient(135deg, #c77a5e 0%, #b86951 100%);
+  color: white;
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .my-recipes-container {
+    padding: 20px 10px;
+  }
+  
+  .page-title {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .no-recipes-found {
+    padding: 60px 20px;
+    margin: 0 10px;
+  }
+  
+  .no-recipes-found h2 {
+    font-size: 1.8rem;
+  }
+  
+  .no-recipes-found p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .no-recipes-found {
+    padding: 40px 16px;
+  }
+  
+  .no-recipes-found h2 {
+    font-size: 1.6rem;
+  }
+  
+  .no-recipes-found p {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+  
+  .btn-primary {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
 }

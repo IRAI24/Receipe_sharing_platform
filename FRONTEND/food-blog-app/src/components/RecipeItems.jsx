@@ -3,11 +3,19 @@ import { Link } from 'react-router-dom';
 import { useFavorites } from '../hooks/useFavorites.js';
 import RecipeCard from './RecipeCard';
 
-// 1. Accept `{ allRecipes }` as a prop here
-export default function RecipeItems({ allRecipes }) {
-  // 2. We've removed the `useLoaderData()` line
-
+// Accept `{ allRecipes }` as a prop
+export default function RecipeItems({ allRecipes, isLoading = false }) {
   const { isFavorite, toggleFavorite } = useFavorites();
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className='recipe-loading-state'>
+        <div className='loading-spinner'></div>
+        <p>Loading delicious recipes...</p>
+      </div>
+    );
+  }
 
   if (!Array.isArray(allRecipes) || allRecipes.length === 0) {
     return (

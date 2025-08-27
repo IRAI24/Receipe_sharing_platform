@@ -26,8 +26,38 @@ export default function RecipeDetail() {
     ? `http://localhost:5050/${recipe.coverImage.replace(/\\/g, '/')}`
     : placeholderImage;
 
+  // Process instructions and remove existing numbering if present
   const instructionSteps = recipe.instructions
-    ? recipe.instructions.split('\n').filter(step => step.trim() !== '')
+    ? recipe.instructions.split('\n')
+        .filter(step => step.trim() !== '')
+        .map((step, index) => {
+          // Debug: Log original step format (remove this after testing)
+          if (index < 3) {
+            console.log(`Original step ${index + 1}:`, JSON.stringify(step));
+          }
+          
+          // More comprehensive regex to handle various numbering formats:
+          // - "1. ", "2. ", "3. " etc.
+          // - "1) ", "2) ", "3) " etc.
+          // - "Step 1: ", "Step 2: " etc.
+          // - "1 - ", "2 - " etc.
+          // - "1.", "2." (with or without space)
+          // - Leading/trailing whitespace
+          let cleanStep = step
+            .replace(/^\s*(?:step\s*)?\d+[.):)\-]?\s*/i, '') // Remove "Step 1:", "1.", "1)", "1 -", etc.
+            .replace(/^\s*\d+\s*[.):)\-]\s*/i, '') // Catch any remaining "1. ", "2) ", etc.
+            .replace(/^\s*[.):)\-]\s*/, '') // Remove any leftover punctuation
+            .trim();
+          
+          // Debug: Log cleaned step (remove this after testing)
+          if (index < 3) {
+            console.log(`Cleaned step ${index + 1}:`, JSON.stringify(cleanStep));
+          }
+          
+          // If the step becomes empty after cleaning, return the original (might be a different format)
+          return cleanStep.length > 0 ? cleanStep : step.trim();
+        })
+        .filter(step => step.length > 0)
     : [];
 
   return (
@@ -55,23 +85,34 @@ export default function RecipeDetail() {
             <span>{recipe.time}</span>
           </div>
 
-          <section className='ingredients'>
-            <h2>Ingredients</h2>
-            <ul>
-              {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-          </section>
+          <div className='recipe-sections'>
+            <section className='ingredients'>
+              <h2>Ingredients</h2>
+              <div className='ingredients-count'>
+                {recipe.ingredients ? recipe.ingredients.length : 0} ingredients
+              </div>
+              <ul>
+                {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </section>
 
-          <section className='instructions'>
-            <h2>Instructions</h2>
-            <ol>
-              {instructionSteps.map((step, index) => (
-                <li key={index}>{step}</li>
-              ))}
-            </ol>
-          </section>
+            <section className='instructions'>
+              <h2>Instructions</h2>
+              <div className='instructions-count'>
+                {instructionSteps.length} steps
+              </div>
+              <ol>
+                {instructionSteps.map((step, index) => (
+                  <li key={index}>
+                    <span className='step-number'>{index + 1}</span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </section>
+          </div>
         </div>
       </div>
     </main>

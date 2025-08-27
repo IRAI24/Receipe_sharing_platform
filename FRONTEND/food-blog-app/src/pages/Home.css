@@ -167,6 +167,18 @@ body {
    ============================================= */
 /* Recipe grid styling is now handled in RecipeCard.css */
 
+/* Additional alignment fix for recipe grid container */
+.recipe-grid {
+  justify-content: center;
+  align-items: start;
+}
+
+/* Center container for recipe grid */
+.recipes-section .recipe-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* No recipes message styling */
 .no-recipes-message {
   text-align: center;

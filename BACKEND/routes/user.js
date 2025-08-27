@@ -7,6 +7,8 @@ const {
   getUser,
   toggleFavorite,
   getFavoriteRecipes,
+  verifyToken,
+  getCurrentUser
 } = require("../controller/user");
 
 const authMiddleware = require('../Middleware/auth');
@@ -14,6 +16,8 @@ const authMiddleware = require('../Middleware/auth');
 // --- Authentication Routes ---
 router.post("/signup", userSignUp);
 router.post("/login", userLogin);
+router.get("/verify-token", authMiddleware, verifyToken);
+router.get("/me", authMiddleware, getCurrentUser);
 
 // --- User Data Route ---
 router.get("/user/:id", getUser); // This one is okay, but for consistency you could remove '/user'

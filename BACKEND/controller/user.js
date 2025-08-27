@@ -126,10 +126,64 @@ const getFavoriteRecipes = async (req, res) => {
   }
 };
 
+/**
+ * Verifies the JWT token and returns the user data for session restoration.
+ * This is used when the app loads to check if the user is still authenticated.
+ */
+const verifyToken = async (req, res) => {
+  try {
+    // The authMiddleware has already verified the token and attached the user
+    const user = req.user;
+    
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid token' });
+    }
+
+    // Return user data (password is already excluded by middleware)
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        email: user.email
+      },
+      message: 'Token is valid'
+    });
+  } catch (error) {
+    console.error("VERIFY TOKEN ERROR:", error);
+    res.status(500).json({ message: 'Server error during token verification' });
+  }
+};
+
+/**
+ * Gets the current user's profile data.
+ * This is used to get fresh user data when needed.
+ */
+const getCurrentUser = async (req, res) => {
+  try {
+    const user = req.user;
+    
+    if (!user) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        favorites: user.favorites
+      }
+    });
+  } catch (error) {
+    console.error("GET CURRENT USER ERROR:", error);
+    res.status(500).json({ message: 'Server error fetching user data' });
+  }
+};
+
 module.exports = {
   userLogin,
   userSignUp,
   getUser,
   toggleFavorite,
-  getFavoriteRecipes
+  getFavoriteRecipes,
+  verifyToken,
+  getCurrentUser
 };
