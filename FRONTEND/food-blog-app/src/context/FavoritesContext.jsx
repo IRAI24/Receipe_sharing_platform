@@ -1,10 +1,8 @@
 // src/context/FavoritesContext.jsx
 
-import React, { createContext, useState, useContext, useCallback, useMemo } from 'react';
+import React, { createContext, useState, useCallback, useMemo } from 'react';
 
-const FavoritesContext = createContext();
-
-export const useFavorites = () => useContext(FavoritesContext);
+export const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
   const [favoriteIds, setFavoriteIds] = useState(() => {

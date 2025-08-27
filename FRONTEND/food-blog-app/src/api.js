@@ -41,7 +41,8 @@ export const getAllRecipes = async () => {
   try {
     const res = await axios.get('http://localhost:5050/api/recipes');
     return res.data;
-  } catch (err) {
+  } catch (error) {
+    console.error('Error fetching recipes:', error);
     throw new Response(JSON.stringify({ message: 'Could not fetch recipes.' }), { status: 500 });
   }
 };
@@ -50,7 +51,8 @@ export const getSingleRecipe = async ({ params }) => {
   try {
     const res = await axios.get(`http://localhost:5050/api/recipes/${params.recipeId}`);
     return res.data;
-  } catch (err) {
+  } catch (error) {
+    console.error('Error fetching recipe:', error);
     throw new Response(JSON.stringify({ message: 'Could not fetch the selected recipe.' }), { status: 500 });
   }
 };
@@ -65,7 +67,8 @@ export const getMyRecipes = async () => {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     return res.data;
-  } catch (err) {
+  } catch (error) {
+    console.error('Error fetching user recipes:', error);
     throw new Response(JSON.stringify({ message: 'Could not fetch your recipes.' }), { status: 500 });
   }
 };
@@ -79,7 +82,8 @@ export const getFavoriteRecipes = async () => {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     return res.data;
-  } catch (err) {
+  } catch (error) {
+    console.error('Error fetching favorite recipes:', error);
     throw new Response(JSON.stringify({ message: 'Could not fetch your favorite recipes.' }), { status: 500 });
   }
 };

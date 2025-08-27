@@ -2,7 +2,15 @@
 
 import { createBrowserRouter, redirect } from 'react-router-dom';
 import axios from 'axios';
-// ... other imports
+import { getMyRecipes, getFavoriteRecipes } from './api.js';
+
+// Import components (these need to be imported or this file needs to be restructured)
+// import RootLayout from './components/RootLayout.jsx';
+// import ErrorPage from './components/ErrorPage.jsx';
+// import ProtectedLayout from './components/ProtectedLayout.jsx';
+// import AddFoodRecipe from './components/AddFoodRecipe.jsx';
+// import MyRecipesPage from './components/MyRecipesPage.jsx';
+// import FavouritesPage from './components/FavouritesPage.jsx';
 
 // --- HELPER to get auth token ---
 const getAuthToken = () => {
