@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext'; // 1. UNCOMMENT THIS LINE
+import { useAuth } from '../hooks/useAuth.js'; // Fixed import path
 import './InputForms.css';
 
 export default function InputForms({ setIsOpen }) {

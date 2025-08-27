@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useFavorites } from '../context/FavoritesContext';
+import { useFavorites } from '../hooks/useFavorites.js';
 import RecipeCard from './RecipeCard';
 
 // 1. Accept `{ allRecipes }` as a prop here

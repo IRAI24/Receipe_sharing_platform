@@ -4,7 +4,8 @@ import RecipeItems from '../components/RecipeItems'; // We reuse the same compon
 import './FavouritesPages.css'; // <-- ADD THIS LINE
 
 export default function FavouritesPage() {
-  const favoriteRecipes = useLoaderData();
+  const data = useLoaderData();
+  const favoriteRecipes = data?.favorites || [];
 
   return (
     <div className="my-recipes-container"> {/* We can reuse this styling */}

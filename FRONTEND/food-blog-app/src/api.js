@@ -75,13 +75,15 @@ export const getMyRecipes = async () => {
 
 export const getFavoriteRecipes = async () => {
   const token = getAuthToken();
-  if (!token) return [];
+  if (!token) {
+    return { favorites: [] };
+  }
 
   try {
     const res = await axios.get('http://localhost:5050/api/users/favorites', {
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    return res.data;
+    return { favorites: res.data };
   } catch (error) {
     console.error('Error fetching favorite recipes:', error);
     throw new Response(JSON.stringify({ message: 'Could not fetch your favorite recipes.' }), { status: 500 });

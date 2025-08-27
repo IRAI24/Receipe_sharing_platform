@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Ensure this path is correct
+import { useAuth } from '../hooks/useAuth.js'; // Fixed import path
 
 const ProtectedLayout = () => {
   const { token } = useAuth();

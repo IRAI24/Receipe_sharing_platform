@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { BsStopwatchFill, BsHeart, BsHeartFill } from "react-icons/bs";
-import { useFavorites } from '../context/FavoritesContext'; // 1. Import the context hook
+import { useFavorites } from '../hooks/useFavorites.js'; // Fixed import path
 import './RecipeDetail.css';
 
 const placeholderImage = 'https://placehold.co/600x300/D98C6B/FFFFFF?text=Recipe';
