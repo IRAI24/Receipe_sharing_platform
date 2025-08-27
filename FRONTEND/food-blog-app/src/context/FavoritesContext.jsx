@@ -9,7 +9,7 @@ export const FavoritesContext = createContext();
 export const FavoritesProvider = ({ children }) => {
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { token, user } = useAuth();
+  const { token } = useAuth();
 
   // Load favorites from database when user logs in
   const loadFavorites = useCallback(async () => {
