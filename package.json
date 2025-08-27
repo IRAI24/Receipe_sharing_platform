@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "init": "^0.1.2",
+    "npx": "^10.2.2",
+    "tailwindcss": "^4.1.11"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  }
+}

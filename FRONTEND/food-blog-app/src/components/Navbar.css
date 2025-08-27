@@ -1,0 +1,193 @@
+/* Navbar with soft background blur and slight transparency */
+.navbar {
+  background: rgba(120, 193, 157, 0.85); /* Slight transparency */
+  backdrop-filter: blur(12px); /* Glassmorphism effect */
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.07);
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+/* Central wrapper for navbar content */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0 24px;
+  max-width: 1300px;
+}
+
+/* Logo styling */
+.navbar-logo {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-highlight {
+  color: #ffe5d1;
+}
+
+/* Navigation menu items */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual nav item */
+.nav-item {
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+/* Link styling */
+.nav-link {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2px;
+  width: 0%;
+  background-color: #fff;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 60%;
+}
+
+/* Active nav item */
+.nav-link.active {
+  color: #ffe5d1;
+}
+
+/* Button styles (e.g., Login/Signup) */
+.nav-link-button {
+  background: linear-gradient(135deg, #e6956b, #d7745a);
+  color: white;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #d87758, #c45e43);
+}
+
+/* Hide menu icon on desktop */
+.menu-icon {
+  display: none;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 960px) {
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 80px;
+    left: -100%; /* Start off-screen */
+    opacity: 0;
+    transition: all 0.5s ease;
+    background: rgba(90, 160, 130, 0.95);
+    padding: 2rem 0;
+  }
+
+  .nav-menu.active {
+    left: 0; /* Slide in */
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .nav-item {
+    width: 100%;
+    justify-content: center;
+    height: 60px;
+  }
+
+  .nav-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-actions {
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  /* --- HAMBURGER MENU ICON STYLING --- */
+  .menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .menu-icon .bar {
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Animate bars into an "X" */
+  .menu-icon .bar.animate:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+  }
+  .menu-icon .bar.animate:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-icon .bar.animate:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+  }
+}

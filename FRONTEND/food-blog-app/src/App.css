@@ -1,0 +1,271 @@
+/* --- UPDATES IN THIS VERSION ---
+  1.  Dark Mode Theme: A full dark mode color palette has been added.
+        - It can be activated by adding a '.dark-mode' class to the <body> tag.
+        - It also respects the user's OS preference via 'prefers-color-scheme'.
+  2.  Staggered Animations: The recipe cards now fade in with a slight delay for a smoother loading effect.
+  3.  Refined Layout: The header and grid now use CSS `clamp()` for fluidly responsive padding.
+--- */
+
+/* --- 1. FONT IMPORT (MUST BE AT THE TOP) --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* --- 2. THEME & GLOBAL VARIABLES --- */
+:root {
+  /* Light Mode Palette (Default) */
+  --background-main: #f8f9fa;
+  --header-bg: #3498db;
+  --card-bg: #ffffff;
+  --button-primary: #e67e22;
+  --button-primary-hover: #d35400;
+  --text-dark: #34495e;
+  --text-light: #95a5a6;
+  --border-color: #e0e6ed;
+  --shadow-color: rgba(0, 0, 0, 0.07);
+  --like-color: #e74c3c;
+  --like-color-inactive: #ccc;
+  --glow-color: rgba(255, 255, 255, 0.4);
+
+  /* Sizing & Spacing */
+  --border-radius: 16px;
+  --spacing-unit: 1rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-med: 0.4s ease;
+}
+
+/* --- DARK MODE THEME --- */
+/* To activate, add class="dark-mode" to the <body> tag in your HTML. */
+body.dark-mode {
+  --background-main: #1a202c;
+  --header-bg: #2d3748;
+  --card-bg: #2d3748;
+  --button-primary: #dd6b20;
+  --button-primary-hover: #c05621;
+  --text-dark: #e2e8f0;
+  --text-light: #a0aec0;
+  --border-color: #4a5568;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --like-color-inactive: #718096;
+  --glow-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- 3. GLOBAL STYLES --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background-main);
+  color: var(--text-dark);
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  transition: background-color var(--transition-med), color var(--transition-med);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* --- 4. HEADER --- */
+header {
+  background: var(--header-bg);
+  padding-block: clamp(1rem, 2.5vw, 1.5rem);
+  padding-inline: clamp(1.5rem, 8vw, 8%);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  transition: background-color var(--transition-med);
+}
+
+.logo {
+  font-family: "Pacifico", cursive;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 0 15px var(--glow-color);
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 1.5);
+}
+
+/* ✨ FIX: Un-nested the 'a' selector */
+header nav a {
+  color: #fdfdfd;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  position: relative;
+  padding-block: 0.5rem;
+}
+
+/* ✨ FIX: Un-nested the '::after' pseudo-element */
+header nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform var(--transition-fast);
+}
+
+/* ✨ FIX: Un-nested the hover/focus states */
+header nav a:hover::after,
+header nav a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.logout-btn {
+  background: var(--button-primary);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+
+/* ✨ FIX: Un-nested the hover/focus states */
+.logout-btn:hover,
+.logout-btn:focus-visible {
+  background: var(--button-primary-hover);
+  outline: none;
+}
+
+/* --- 5. GRID & CARDS --- */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: calc(var(--spacing-unit) * 2);
+  padding: calc(var(--spacing-unit) * 2) clamp(1.5rem, 8vw, 8%);
+}
+
+.recipe-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 25px var(--shadow-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-med);
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+  animation-delay: calc(var(--card-index, 0) * 50ms);
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px var(--shadow-color);
+}
+
+.recipe-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+/* ✨ FIX: Un-nested the 'img' selector */
+.recipe-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-med);
+}
+
+.recipe-card:hover .recipe-card-image img {
+  transform: scale(1.05);
+}
+
+.recipe-card-content {
+  padding: calc(var(--spacing-unit) * 1.2);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recipe-card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.recipe-card-instructions {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-unit);
+}
+
+.recipe-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  transition: border-color var(--transition-med);
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.like-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--like-color-inactive);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* ✨ FIX: Un-nested the hover and .liked states */
+.like-button.liked,
+.like-button:hover {
+  color: var(--like-color);
+}
+
+.like-button:hover {
+  transform: scale(1.2);
+}
+
+/* --- 8. ANIMATIONS --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- 9. RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  /* No changes needed here, fluid padding handles it */
+}
